@@ -1,0 +1,7 @@
+olive 1
+tomato 1
+mushroom 1
+jalapeno 1
+chicken 2
+beef 4
+pepperoni 3

@@ -1,0 +1,8 @@
+coke 3
+diet_coke 3
+coke_zero 3
+pepsi 3
+diet_pepsi 3
+dr.pepper 3
+water 1
+juice 2
