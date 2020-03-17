@@ -1,4 +1,0 @@
-small 6
-medium 8
-large 10
-xlarge 12
