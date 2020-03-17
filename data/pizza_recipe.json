@@ -1,0 +1,6 @@
+{
+  "pepperoni": { "pepperoni": 3, "olive": 1, "jalapeno": 1, "tomato": 2 },
+  "margherita": { "tomato": 7 },
+  "vegetarian": { "olive": 1, "mushroom": 2, "jalapeno": 2, "tomato": 2 },
+  "neapolitan": { "tomato": 3, "chicken": 2, "beef": 2 }
+}
