@@ -1,13 +1,20 @@
 from typing import Dict, List, Optional
 
 import json
+import os
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+recipe_file = os.path.join(THIS_FOLDER, './../../data/pizza_recipe.json')
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+topping_file = os.path.join(THIS_FOLDER, './../../data/topping_price.json')
 
 # load recipes
-with open('./data/pizza_recipe.json') as f:
+with open(recipe_file) as f:
     recipe = json.load(f)
 
 # load topping prices
-with open('./data/topping_price.json') as f:
+with open(topping_file) as f:
     topping_price = json.load(f)
 
 
