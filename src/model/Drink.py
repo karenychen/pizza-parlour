@@ -1,3 +1,12 @@
+import json
+import os
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+drink_file = os.path.join(THIS_FOLDER, './../../data/drink_price.json')
+
+with open(drink_file) as f:
+    drink_price = json.load(f)
+
 class Drink:
     """ A drink in pizza parlour order.
 
@@ -9,11 +18,7 @@ class Drink:
     price: float
 
     def __init__(self, name: str):
-        """Precondition: name is one of coke, diet coke, coke zero, pepsi, diet pepsi, dr.pepper, water, juice"""
+        """Initialize a new Drink object given its name
+        Precondition: name is one of coke, diet coke, coke zero, pepsi, diet pepsi, dr.pepper, water, juice."""
         self.name = name
-        if name == 'water':
-            self.price = 1.00
-        elif name == 'juice':
-            self.price = 2.00
-        else:
-            self.price = 3.00
+        self.price = drink_price[name]

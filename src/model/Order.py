@@ -19,6 +19,7 @@ class Order:
     method: str
 
     def __init__(self, items: List[Union[Pizza, Drink]], price: float, method: str) -> None:
+        """Initialize a new Order object."""
         self.order_num = counter
         counter += 1
         self.items = items
@@ -26,30 +27,30 @@ class Order:
         self.method = method
     
     def add_pizza(self, size: str, type: str, toppings: Dict[str, int], type_recipe: Optional[Dict[str, int]]) -> bool:
-        if type == 'pepperoni' or type == 'margherita' or type == 'vegetarian' or type == 'neapolitan':
-            pizza = Pizza(size, type, toppings)
-        else: 
-            pizza = Pizza(size, type, toppings, type_recipe)
+        """Add a new Pizza to the Order Returns false if addition is successful."""
+        pizza = Pizza(size, type, toppings, type_recipe)
         self.items.append(pizza)
         self.update_price()
         return True
     
     def add_drink(self, name: str) -> bool:
+        """Add a new Drink to the Order. Returns true if addition is successful."""
         self.items.append(Drink(name))
         self.update_price()
         return True
         
     def delete_item(self, index: int) -> Union[Pizza, Drink]:
-        """Precondition: index < len(self.items)"""
+        """Delete an item in the Order given its index in the list, returns the deleted item.
+        Precondition: index < len(self.items)
+        """
         deleted = self.items.pop(index)
         self.update_price()
         return deleted
 
     def update_price(self) -> None:
+        """Updates the total price of this Order."""
         self.price = 0
         for item in items:
             self.price += item.price
-    
-
             
 
