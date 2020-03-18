@@ -24,7 +24,7 @@ class Order:
         self.order_num = counter
         counter += 1
         self.items = items
-        self.price = self.update_price()
+        self.update_price()
         self.method = method
     
     def add_pizza(self, size: str, type: str, toppings: Dict[str, int], type_recipe: Optional[Dict[str, int]]) -> bool:
