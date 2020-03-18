@@ -35,7 +35,7 @@ class Pizza:
         """Initialize a new Pizza object"""
         self.size = size
         self.toppings = toppings
-        PizzaFactory().make_pizza(type, toppings)
+        self.type = PizzaFactory().make_pizza(type, toppings)
         self.update_price()
     
     def change_size(self, new_size: str) -> None:

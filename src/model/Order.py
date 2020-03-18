@@ -1,8 +1,8 @@
-from typing import List, Union
+from typing import List, Dict, Union, Optional
 from Pizza import Pizza
 from Drink import Drink
 
-counter = 0
+counter = 1
 
 class Order:
     """An order in the pizza parlour.
@@ -20,10 +20,11 @@ class Order:
 
     def __init__(self, items: List[Union[Pizza, Drink]], method: str) -> None:
         """Initialize a new Order object."""
+        global counter
         self.order_num = counter
         counter += 1
         self.items = items
-        self.price = update_price()
+        self.price = self.update_price()
         self.method = method
     
     def add_pizza(self, size: str, type: str, toppings: Dict[str, int], type_recipe: Optional[Dict[str, int]]) -> bool:
@@ -50,7 +51,5 @@ class Order:
     def update_price(self) -> None:
         """Updates the total price of this Order."""
         self.price = 0
-        for item in items:
+        for item in self.items:
             self.price += item.price
-            
-
