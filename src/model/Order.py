@@ -18,7 +18,7 @@ class Order:
     price: float
     method: str
 
-    def __init__(self, items: List[Union[Pizza, Drink]], price: float, method: str) -> None:
+    def __init__(self, items: List[Union[Pizza, Drink]], method: str) -> None:
         """Initialize a new Order object."""
         self.order_num = counter
         counter += 1
