@@ -1,0 +1,33 @@
+{
+    "pizza size": {
+        "small" : 6.00,
+        "medium" : 8.00,
+        "large" : 10.00,
+        "xlarge" : 12.00    
+    },
+    "pizza type": {
+        "pepperoni": 13.00,
+        "margherita": 7.00,
+        "vegetarian": 7.00,
+        "neapolitan": 15.00
+    },
+    "pizza topping": {
+        "olive": 1.00,
+        "tomato": 1.00,
+        "mushroom": 1.00,
+        "jalapeno": 1.00,
+        "chicken": 2.00,
+        "beef": 4.00,
+        "pepperoni": 3.00    
+    },
+    "drinks": {
+        "coke" : 1.50,
+        "diet-coke" : 1.50,
+        "coke-zero" : 1.50,
+        "pepsi" : 1.50,
+        "diet-pepsi" : 1.50,
+        "dr.pepper" : 1.50,
+        "water" : 1.00,
+        "juice" : 2.00    
+    }
+}
