@@ -29,7 +29,7 @@ class Order:
     
     def add_pizza(self, size: str, type: str, toppings: Dict[str, int], type_recipe: Optional[Dict[str, int]]) -> bool:
         """Add a new Pizza to the Order Returns false if addition is successful."""
-        pizza = Pizza(size, type, toppings, type_recipe)
+        pizza = Pizza(size, type, toppings)
         self.items.append(pizza)
         self.update_price()
         return True
