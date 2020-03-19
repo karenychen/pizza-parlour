@@ -32,6 +32,7 @@ class Menu:
         for category in menu:
             if name in menu[category]:
                 return menu[category][name]
+        return -1.0
 
     
 

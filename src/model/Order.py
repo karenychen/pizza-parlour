@@ -22,7 +22,7 @@ class Order:
         counter += 1
         self.items = items
         self.update_price()
-    
+
     def update_price(self) -> None:
         menu = Menu()
         self.price = 0
