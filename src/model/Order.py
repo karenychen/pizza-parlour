@@ -30,9 +30,16 @@ class Order:
             if isinstance(item, str): # item is a drink
                 self.price += menu.get_price_by_name(item)
             else: # item is a pizza
-                self.price += menu.get_price_by_name(item[0]) + menu.get_price_by_name(item[1])
+                self.price += menu.get_price_by_name(item[0])
+                if item[1] != '':
+                    self.price += menu.get_price_by_name(item[1])
                 for topping in item[2]:
                     self.price += menu.get_price_by_name(topping) * item[2][topping]
+    
+    def replace_item(self, old_item: Union[Dict[str, str], str], new_item: Union[Dict[str, str], str]) -> None:
+        self.items.remove(old_item)
+        self.items.append(new_item)
+        self.update_price()
 
 
 # class Order:
