@@ -44,7 +44,7 @@ class DeliveryFactory:
                 return (400, 'Wrong number of arguments in the first line of the csv file, expected 3.')
             elif not result[0].isdigit():
                 return (400, 'Invalid order number.')
-            return (0, FoodoraDelivery(input[0], input[1], input[2]))
+            return (0, FoodoraDelivery(int(result[0]), result[1], result[2]))
 
 
 class Delivery:

@@ -37,7 +37,8 @@ class Order:
                     self.price += menu.get_price_by_name(topping) * item[2][topping]
     
     def replace_item(self, old_item: Union[Dict[str, str], str], new_item: Union[Dict[str, str], str]) -> None:
-        self.items.remove(old_item)
+        if(old_item in self.items):
+            self.items.remove(old_item)
         self.items.append(new_item)
         self.update_price()
 

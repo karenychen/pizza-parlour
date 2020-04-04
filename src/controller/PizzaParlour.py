@@ -65,7 +65,7 @@ def get_price_by_name(name: str):
     if price < 0:
         abort(404, 'The item name does not exist.')
     else: 
-        return jsonify([price])
+        return jsonify(price)
 
 # request.json is a list of strings and lists representing items in the order
 # this method returns the order number and the total price of this order
@@ -118,7 +118,7 @@ def add_pickup():
         abort(400, 'Wrong argument, expected an integer representing the order number.')
     # check if the order has already been added to the pickup list
     for pickup_order in pickup_orders:
-        if pickup_order[0] == request.json[0]:
+        if pickup_order == request.json[0]:
             abort(400, "The order has already been added for pickup.")
 
     # check if the order number exists.
@@ -132,7 +132,7 @@ def add_pickup():
 # Example of request.json: [56, "Call me when arriving the lobby", "253 College Street"]
 @app.route('/add-in-house-delivery', methods=['POST'])
 def add_in_house_delivery():
-    create_delivery_result = DeliveryFactory(0, request.json) # 0 means in-house delivery
+    create_delivery_result = delivery_factory.create_valid_delivery(0, request.json) # 0 means in-house delivery
     if(create_delivery_result[0]): # if the first return value is not 0, then it is an error code
         abort(create_delivery_result[0], create_delivery_result[1]) # in this case, the second is the error message
     else:
@@ -155,7 +155,7 @@ def add_in_house_delivery():
 # Example of request.json: [56, "Call me when arriving the lobby", "253 College Street"]
 @app.route('/add-uber-eats', methods=['POST'])
 def add_uber_eats():
-    create_delivery_result = DeliveryFactory(1, request.json) # 1 means Uber Eats delivery
+    create_delivery_result = delivery_factory.create_valid_delivery(1, request.json) # 1 means Uber Eats delivery
     if(create_delivery_result[0]): # if the first return value is not 0, then it is an error code
         abort(create_delivery_result[0], create_delivery_result[1]) # in this case, the second is the error message
     else:
@@ -179,7 +179,7 @@ def add_uber_eats():
 # if the order has been added yet.
 @app.route('/add-foodora')
 def add_foodora():
-    create_delivery_result = DeliveryFactory(2, request.json) # 2 means Foodora delivery
+    create_delivery_result = delivery_factory.create_valid_delivery(2, request.json) # 2 means Foodora delivery
     if(create_delivery_result[0]): # if the first return value is not 0, then it is an error code
         abort(create_delivery_result[0], create_delivery_result[1]) # in this case, the second is the error message
     else:
@@ -193,11 +193,10 @@ def add_foodora():
 
     # check if the order number exists.
     for order in orders:
-        if order.order_num == new_delivery.order_num:
+        if int(order.order_num) == int(new_delivery.order_num):
             foodora_delivery.append(new_delivery)
             return jsonify(new_delivery.order_num)
     abort(404, "The order number for Foodora delivery does not exist. ")
-
 
 
 if __name__ == "__main__":
