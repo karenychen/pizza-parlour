@@ -49,6 +49,19 @@ def is_valid_order(items: List[Union[Dict[str, str], str]]) -> bool:
             return False
     return True
 
+# this function checks if the order has been added for pickup or delivery. Return True if it has been.
+def added_for_pickup_or_delivery(order_num: int) -> bool: 
+    for pickup_order_num in pickup_orders:
+        if order_num == pickup_order_num:
+            return True
+
+    for delivery in in_house_delivery + uber_eats_delivery + foodora_delivery:
+        if delivery.order_num == order_num:
+            return True
+    
+    return False
+
+
 @app.route('/pizza')
 def welcome_pizza():
     return 'Welcome to Pizza Planet!'
@@ -111,15 +124,16 @@ def cancel_order():
             return jsonify(request.json[0])
     abort(404, "The order requested to be deleted does not exist.")
 
+
 # request.json is a list of 1 element (the order number of order for pickup)
 @app.route('/add-pickup', methods=['POST'])
 def add_pickup():
     if not isinstance(request.json[0], int):
         abort(400, 'Wrong argument, expected an integer representing the order number.')
-    # check if the order has already been added to the pickup list
-    for pickup_order in pickup_orders:
-        if pickup_order == request.json[0]:
-            abort(400, "The order has already been added for pickup.")
+
+    # check if the order has already been added to the pickup or delivery list.
+    if(added_for_pickup_or_delivery(request.json[0])):
+        abort(400, "The order has already been added for pickup or delivery.")
 
     # check if the order number exists.
     for order in orders:
@@ -139,10 +153,9 @@ def add_in_house_delivery():
         # if the first return value is 0, then the second is the created Delivery object
         new_delivery = create_delivery_result[1]
     
-    # check if the order has already been added to the in-house delivery list.
-    for delivery in in_house_delivery:
-        if delivery.order_num == new_delivery.order_num:
-            abort(400, "The order has already been added for in-house delivery.")
+    # check if the order has already been added to the pickup or delivery list.
+    if(added_for_pickup_or_delivery(request.json[0])):
+        abort(400, "The order has already been added for pickup or delivery.")
 
     # check if the order number exists.
     for order in orders:
@@ -162,10 +175,9 @@ def add_uber_eats():
         # if the first return value is 0, then the second is the created Delivery object
         new_delivery = create_delivery_result[1]
     
-    # check if the order has already been added to the in-house delivery list.
-    for delivery in uber_eats_delivery:
-        if delivery.order_num == new_delivery.order_num:
-            abort(400, "The order has already been added for Uber Eats delivery.")
+    # check if the order has already been added to the pickup or delivery list.
+    if(added_for_pickup_or_delivery(request.json[0])):
+        abort(400, "The order has already been added for pickup or delivery.")
 
     # check if the order number exists.
     for order in orders:
@@ -186,10 +198,9 @@ def add_foodora():
         # if the first return value is 0, then the second is the created Delivery object
         new_delivery = create_delivery_result[1]
     
-    # check if the order has already been added to the in-house delivery list.
-    for delivery in foodora_delivery:
-        if delivery.order_num == new_delivery.order_num:
-            abort(400, "The order has already been added for Foodora delivery.")
+    # check if the order has already been added to the pickup or delivery list.
+    if(added_for_pickup_or_delivery(new_delivery.order_num)):
+        abort(400, "The order has already been added for pickup or delivery.")
 
     # check if the order number exists.
     for order in orders:

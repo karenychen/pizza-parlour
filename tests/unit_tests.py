@@ -8,6 +8,7 @@ from PizzaParlour import app
 import unittest
 
 class AppTestCase(unittest.TestCase):
+
     def test_01_is_valid_item(self):
         valid_item1 = "diet-coke"
         valid_item2 = ["small", "margherita", {"olive": 2, "beef": 1}]
@@ -184,7 +185,7 @@ class AppTestCase(unittest.TestCase):
             self.assertEqual(
                 json.loads(result.data), 1)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint (already added to pickup or delivery)
             sent = [1]
             result = client.post(
                 '/add-pickup',
@@ -213,17 +214,24 @@ class AppTestCase(unittest.TestCase):
 
     def test_10_add_in_house_delivery(self):
         with app.test_client() as client:
+            # create a new order (order number is 3)
+            sent = ["diet-coke", ["small", "margherita", {"olive": 2, "beef": 1}]]
+            result = client.post(
+                '/new-order',
+                json=sent
+            )
+
             # send valid data as POST form to endpoint
-            sent = [1, "Call me when arriving the lobby", "253 College Street"]
+            sent = [3, "Call me when arriving the lobby", "253 College Street"]
             result = client.post(
                 '/add-in-house-delivery',
                 json=sent
             )
             # check result from server with expected data
             self.assertEqual(
-                json.loads(result.data), 1)
+                json.loads(result.data), 3)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint (already added to pickup or delivery)
             sent = [1, "Call me when arriving the lobby", "253 College Street"]
             result = client.post(
                 '/add-in-house-delivery',
@@ -241,8 +249,8 @@ class AppTestCase(unittest.TestCase):
             # check result from server with invalid data
             self.assertEqual(result.status_code, 400)
 
-            # send invalid data as POST form to endpoint (repeated order number)
-            sent = [1, 1, "253 College Street"]
+            # send invalid data as POST form to endpoint
+            sent = [3, 1, "253 College Street"]
             result = client.post(
                 '/add-in-house-delivery',
                 json=sent
@@ -250,7 +258,7 @@ class AppTestCase(unittest.TestCase):
             # check result from server with invalid data
             self.assertEqual(result.status_code, 400)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint
             sent = ["hello", "Call me when arriving the lobby", "253 College Street"]
             result = client.post(
                 '/add-in-house-delivery',
@@ -259,7 +267,7 @@ class AppTestCase(unittest.TestCase):
             # check result from server with invalid data
             self.assertEqual(result.status_code, 400)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint
             sent = [1, "Call me when arriving the lobby", 1]
             result = client.post(
                 '/add-in-house-delivery',
@@ -280,17 +288,24 @@ class AppTestCase(unittest.TestCase):
 
     def test_11_add_uber_eats(self):
         with app.test_client() as client:
+            # create a new order (order number is 4)
+            sent = ["diet-coke", ["small", "margherita", {"olive": 2, "beef": 1}]]
+            result = client.post(
+                '/new-order',
+                json=sent
+            )
+
             # send valid data as POST form to endpoint
-            sent = [1, "Call me when arriving the lobby", "253 College Street"]
+            sent = [4, "Call me when arriving the lobby", "253 College Street"]
             result = client.post(
                 '/add-uber-eats',
                 json=sent
             )
             # check result from server with expected data
             self.assertEqual(
-                json.loads(result.data), 1)
+                json.loads(result.data), 4)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint (already added to pickup or delivery)
             sent = [1, "Call me when arriving the lobby", "253 College Street"]
             result = client.post(
                 '/add-uber-eats',
@@ -308,7 +323,7 @@ class AppTestCase(unittest.TestCase):
             # check result from server with invalid data
             self.assertEqual(result.status_code, 400)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint
             sent = [1, 1, "253 College Street"]
             result = client.post(
                 '/add-uber-eats',
@@ -317,7 +332,7 @@ class AppTestCase(unittest.TestCase):
             # check result from server with invalid data
             self.assertEqual(result.status_code, 400)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint
             sent = ["hello", "Call me when arriving the lobby", "253 College Street"]
             result = client.post(
                 '/add-uber-eats',
@@ -326,7 +341,7 @@ class AppTestCase(unittest.TestCase):
             # check result from server with invalid data
             self.assertEqual(result.status_code, 400)
 
-            # send invalid data as POST form to endpoint (repeated order number)
+            # send invalid data as POST form to endpoint (already added to pickup or delivery)
             sent = [1, "Call me when arriving the lobby", 1]
             result = client.post(
                 '/add-uber-eats',
@@ -345,15 +360,21 @@ class AppTestCase(unittest.TestCase):
             self.assertEqual(result.status_code, 404)
 
     def test_12_add_foodora(self):
+        with app.test_client() as client:
+            # create a new order (order number is 5)
+            sent = ["diet-coke", ["small", "margherita", {"olive": 2, "beef": 1}]]
+            client.post('/new-order',json=sent)
+
         # send valid data as POST form to endpoint
         response = app.test_client().get('/add-foodora')
         # check result from server with expected data
-        self.assertEqual(json.loads(response.data), 1)
+        self.assertEqual(json.loads(response.data), 5)
 
-        # send invalid data as POST form to endpoint (repeated order number)
+        # send invalid data as POST form to endpoint (already added to pickup or delivery)
         response = app.test_client().get('/add-foodora')
         # check result from server with invalid data
         self.assertEqual(response.status_code, 400)
+
 
     
 
