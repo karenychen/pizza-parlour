@@ -271,6 +271,8 @@ The reason why we choose to use MVC design pattern was because it is easier to m
 ### Process
 We first designed the the whole project structure together, then implemented features with pair programming. Due to the COVID-19 situation, we have been pair programming via TeamViewer.
 
+Note: Since Karen's computer couldn't run coverage for some reason, the test is done and pushed through Kexin's computer via Teamviewer (hence we only have Kexin's commit for tests).
+
 ### The following features are pair programmed:
 #### 1. Menu Viewing & Submitting New Orders
 **Driver**: Karen Chen
