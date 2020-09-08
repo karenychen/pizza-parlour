@@ -1,4 +1,5 @@
 # Pizza Parlour
+An API for a Pizza Parlour built with Python Flask.
 
 ## Getting Started
 Run the main Flask module by running ```python3 ./src/controller/PizzaParlour.py```
